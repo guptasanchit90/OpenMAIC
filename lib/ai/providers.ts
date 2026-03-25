@@ -945,6 +945,59 @@ export const PROVIDERS: Record<ProviderId, ProviderConfig> = {
       },
     ],
   },
+
+  bifrost: {
+    id: 'bifrost',
+    name: 'Bifrost',
+    type: 'openai',
+    defaultBaseUrl: 'http://localhost:8080/openai',
+    requiresApiKey: false,
+    icon: '/logos/bifrost.svg',
+    models: [
+      {
+        id: 'openai/gpt-4o',
+        name: 'GPT-4o (via Bifrost)',
+        contextWindow: 128000,
+        outputWindow: 4096,
+        capabilities: { streaming: true, tools: true, vision: true },
+      },
+      {
+        id: 'openai/gpt-4o-mini',
+        name: 'GPT-4o Mini (via Bifrost)',
+        contextWindow: 128000,
+        outputWindow: 4096,
+        capabilities: { streaming: true, tools: true, vision: true },
+      },
+      {
+        id: 'anthropic/claude-sonnet-4-20250514',
+        name: 'Claude Sonnet 4 (via Bifrost)',
+        contextWindow: 200000,
+        outputWindow: 4096,
+        capabilities: { streaming: true, tools: true, vision: true },
+      },
+      {
+        id: 'anthropic/claude-3-5-sonnet-20241022',
+        name: 'Claude 3.5 Sonnet (via Bifrost)',
+        contextWindow: 200000,
+        outputWindow: 4096,
+        capabilities: { streaming: true, tools: true, vision: true },
+      },
+      {
+        id: 'google/gemini-2.0-flash-exp',
+        name: 'Gemini 2.0 Flash (via Bifrost)',
+        contextWindow: 1000000,
+        outputWindow: 8192,
+        capabilities: { streaming: true, tools: true, vision: true },
+      },
+      {
+        id: 'deepseek/deepseek-chat',
+        name: 'DeepSeek Chat (via Bifrost)',
+        contextWindow: 128000,
+        outputWindow: 4096,
+        capabilities: { streaming: true, tools: true, vision: false },
+      },
+    ],
+  },
 };
 
 /**
