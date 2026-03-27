@@ -13,6 +13,7 @@ import { generateWithSeedream, testSeedreamConnectivity } from './adapters/seedr
 import { generateWithQwenImage, testQwenImageConnectivity } from './adapters/qwen-image-adapter';
 import { generateWithNanoBanana, testNanoBananaConnectivity } from './adapters/nano-banana-adapter';
 import { generateWithGrokImage, testGrokImageConnectivity } from './adapters/grok-image-adapter';
+import { generateWithBifrost, testBifrostConnectivity } from './adapters/bifrost-image-adapter';
 
 export const IMAGE_PROVIDERS: Record<ImageProviderId, ImageProviderConfig> = {
   seedream: {
@@ -78,6 +79,18 @@ export const IMAGE_PROVIDERS: Record<ImageProviderId, ImageProviderConfig> = {
     ],
     supportedAspectRatios: ['16:9', '4:3', '1:1', '9:16'],
   },
+  bifrost: {
+    id: 'bifrost',
+    name: 'Bifrost',
+    requiresApiKey: true,
+    defaultBaseUrl: 'http://localhost:8080',
+    models: [
+      { id: 'xai/grok-imagine-image', name: 'Grok Imagine Image' },
+      { id: 'xai/grok-imagine-image-pro', name: 'Grok Imagine Image Pro' },
+      { id: 'google/gemini-2.0-flash-exp', name: 'Gemini 2.0 Flash' },
+    ],
+    supportedAspectRatios: ['16:9', '4:3', '1:1', '9:16'],
+  },
 };
 
 export async function testImageConnectivity(
@@ -92,6 +105,8 @@ export async function testImageConnectivity(
       return testNanoBananaConnectivity(config);
     case 'grok-image':
       return testGrokImageConnectivity(config);
+    case 'bifrost':
+      return testBifrostConnectivity(config);
     default:
       return {
         success: false,
@@ -113,6 +128,8 @@ export async function generateImage(
       return generateWithNanoBanana(config, options);
     case 'grok-image':
       return generateWithGrokImage(config, options);
+    case 'bifrost':
+      return generateWithBifrost(config, options);
     default:
       throw new Error(`Unsupported image provider: ${config.providerId}`);
   }
